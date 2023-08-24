@@ -1,13 +1,30 @@
-import { IsNotEmpty, IsNumber, IsNumberString } from "class-validator";
+import { ArrayMinSize, IsArray, IsInt, IsNotEmpty, IsNumber, IsNumberString, IsPositive, Length, MaxLength, Min, ValidateNested } from "class-validator";
+import { CaracteristicaProdutoDTO } from "./CaracteristicaProduto.dto";
+import { Type } from "class-transformer";
 
 export class CriaProdutoDTO {
 
-    @IsNumber()
-    id: number;
+    @IsNotEmpty()
+    nome: string;
+
+    @IsNumberString()    
+    @Length(1, 2)
+    valor: string;
+
+    @IsInt()
+    @Min(0)
+    quantidade: number;
 
     @IsNotEmpty()
-    nomeDoProduto: string;
+    @MaxLength(1000)
+    descricao: string;
 
-    @IsNumberString()
-    preco: string;
+    @ValidateNested()
+    @IsArray()
+    @ArrayMinSize(3)
+    @Type(() => CaracteristicaProdutoDTO)
+    caracteristicas: CaracteristicaProdutoDTO[];
+
+    @IsNotEmpty()
+    categoria: string;
 }
