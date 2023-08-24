@@ -1,4 +1,6 @@
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class UsuarioRepository {
     private usuarios = [];
 
@@ -10,4 +12,4 @@ export class UsuarioRepository {
     async listar() {
         return this.usuarios;
     }
-}
+} 
